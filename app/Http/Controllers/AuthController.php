@@ -35,11 +35,11 @@ class AuthController extends Controller
             // attempt to verify the credentials and create a token for the user
             // $token = Auth::attempt($credentials);
             if (! $token = Auth::attempt($credentials)) {
-                return response()->json(['error' => 'invalid_credentials']+ ['status' => '401'], 401);
+                return response()->json(['error' => 'Contraseña o usuario incorrecto']+ ['status' => '401'], 401);
             }
         } catch (JWTException $e) {
             // something went wrong whilst attempting to encode the token
-            return response()->json(['error' => 'could_not_create_token'], 500);
+            return response()->json(['error' => 'No se pudo crear el token'], 500);
         }
 
         // all good so return the token
@@ -52,7 +52,7 @@ class AuthController extends Controller
         if (!$token) {
             return response()->json([
                 'status' => 'error',
-                'error' => 'Invalid credentials',
+                'error' => 'Contraseña o usuario incorrecto',
             ], 401);
         }
 
@@ -94,7 +94,7 @@ class AuthController extends Controller
         $token = Auth::login($user);
         return response()->json([
             'status' => 'success',
-            'message' => 'User created successfully',
+            'message' => 'Usuario creado exitosamente',
             'user' => $user,
             'authorisation' => [
                 'token' => $token,
@@ -108,7 +108,7 @@ class AuthController extends Controller
         Auth::logout();
         return response()->json([
             'status' => 'success',
-            'message' => 'Successfully logged out',
+            'message' => 'Sesion cerrada correctamente',
         ]);
     }
 
